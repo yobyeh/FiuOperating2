@@ -55,12 +55,27 @@ int main(int argc, char **argv)
     {
     //FCFS
     case 1:
-        int currentArrival = arrival[0];
-        int arrivals[sizeof(arrival)];
-        for (int i = 0; i < sizeof(arrival); i++){
-            for (int j = 0; j < sizeof(arrival); j++){
-                //if(currentArrival > )
+        
+        for(int i = 0; i < sizeof(arrival); i++){
+            int oldArrival = arrival[i];
+            int oldBurst = burst[i];
+            for(int j = i + 1; j < sizeof(arrival); j++){
+                int newArrival = arrival[j];
+                int newButst = burst[j];
+                if(oldArrival > newArrival){
+                    arrival[i] = newArrival;
+                    arrival[j] = oldArrival;
+                    burst[i] = newButst;
+                    burst[j] = oldBurst;
+                }
             }
+        }
+
+        //test print
+        for (int i = 0; i < sizeof(arrival); i++){
+            printf(arrival[i]);
+            printf(burst[i]);
+            printf("/n");
         }
 
         break;
