@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 
 int main(int argc, char **argv)
 {
@@ -73,8 +73,8 @@ int main(int argc, char **argv)
 
         //test print
         for (int i = 0; i < sizeof(arrival); i++){
-            printf(arrival[i]);
-            printf(burst[i]);
+            printf("%d", arrival[i]);
+            printf("%d", burst[i]);
             printf("/n");
         }
 
