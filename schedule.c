@@ -45,6 +45,8 @@ int main(int argc, char **argv)
         userSelect = 2;
     }else{
         printf("Selected schedule not recognized\n Options are FCFS and SJF");
+        free(arrival);
+        free(burst);
         exit(1);
     }
     
@@ -56,10 +58,10 @@ int main(int argc, char **argv)
     //FCFS
     case 1:
         
-        for(int i = 0; i < sizeof(arrival); i++){
+        for(int i = 0; i < numProcess; i++){
             int oldArrival = arrival[i];
             int oldBurst = burst[i];
-            for(int j = i + 1; j < sizeof(arrival); j++){
+            for(int j = i + 1; j < numProcess; j++){
                 int newArrival = arrival[j];
                 int newButst = burst[j];
                 if(oldArrival > newArrival){
@@ -72,10 +74,10 @@ int main(int argc, char **argv)
         }
 
         //test print
-        for (int i = 0; i < sizeof(arrival); i++){
+        for (int i = 0; i < numProcess; i++){
             printf("%d", arrival[i]);
             printf("%d", burst[i]);
-            printf("/n");
+            printf("\n");
         }
 
         break;
