@@ -56,10 +56,12 @@ int main(int argc, char **argv)
     {
         //FCFS
         case 1:{
+            //tracking process labels
             int processLables[numProcess];
-        for(int i = 0; i < numProcess; i++){
-            processLables[i] = i;
-        }	
+            for(int i = 0; i < numProcess; i++){
+                processLables[i] = i + 1;
+            }
+            //sorting arrays by arrival time
             for(int i = 0; i < numProcess; i++){
                 int oldArrival = arrival[i];
                 int oldBurst = burst[i];
@@ -86,6 +88,39 @@ int main(int argc, char **argv)
                 printf("burst %d", burst[i]);
                 printf("\n");
             }
+
+            //print process order
+            printf("Process order\n");
+            for (int i = 0; i < numProcess; i++){
+                printf(" %d ", processLables[i]+1);
+            }
+            //average wait
+            int currentTime = 0;
+            int currentProcess = 0;
+            int completedProcess = 0;
+            int startTime[numProcess];
+            int endTime[numProcess];
+
+            while(completedProcess >= numProcess){
+                if(arrival[currentProcess] >= currentTime){
+                    startTime[currentProcess] = currentTime;
+                    currentTime + burst[currentProcess];
+                    endTime[currentProcess] = currentTime;
+                    completedProcess + 1;
+                }
+            }
+            
+            //test print
+            for (int i = 0; i < numProcess; i++){
+            printf("Process label %d", arrival[i]);
+                printf("process number %d", processLables[i]+1);
+                printf("start %d", startTime[i]);
+                printf("end %d", endTime[i]);
+                printf("\n");
+            }
+
+            //average turnaround
+
 
             break;
         }
