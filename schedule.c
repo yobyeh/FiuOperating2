@@ -96,7 +96,7 @@ int main(int argc, char **argv)
             }
             printf("\n");
 
-            //average wait
+            //running first FCFS
             int currentTime = 0;
             int currentProcess = 0;
             int completedProcess = 0;
@@ -122,6 +122,15 @@ int main(int argc, char **argv)
                 printf("end %d ", endTime[i]);
                 printf("\n");
             }
+
+            //average wait
+            int totalWait;
+            for (int i = 0; i < numProcess; i++){
+                int waitTime = startTime[i] - arrival[i];
+                totalWait += waitTime;
+            }
+            double averageWait = totalWait / numProcess;
+            printf("average wait time is: %d\n", averageWait);
 
             //average turnaround
 
