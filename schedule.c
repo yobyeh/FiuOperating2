@@ -161,7 +161,7 @@ int main(int argc, char **argv)
             for(int i = 0; i < numProcess; i++){
                 printf(" %d ", orderCompleted[i]);
             }
-
+            printf("\n");
 
             //Average wait
             int totalWait = 0;
