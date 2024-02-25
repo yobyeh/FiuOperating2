@@ -133,7 +133,13 @@ int main(int argc, char **argv)
             printf("average wait time is: %f\n", averageWait);
 
             //average turnaround
-
+            int totalTurn = 0;
+            for (int i = 0; i < numProcess; i++){
+                int turn = endTime[i] - arrival[i];
+                totalTurn += turn;
+            }
+            double averageTurn = (double)(totalTurn) / numProcess;
+            printf("Average turnaround time is: %f\n", averageTurn);
 
             break;
         }
