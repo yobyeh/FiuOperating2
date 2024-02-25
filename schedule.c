@@ -78,6 +78,11 @@ int main(int argc, char **argv)
     int startTime[numProcess];
     int endTime[numProcess];
 
+    for(int i = 0; i < numProcess; i++) {
+    startTime[i] = -1; // Indicates not started
+    endTime[i] = -1;  // Indicates not ended
+    }
+
     //run desired schedule
     //output order Average wait and average turnaround
     switch (userSelect)
@@ -157,7 +162,7 @@ int main(int argc, char **argv)
 
             
             for(int i = 0; i < numProcess; i++){
-                visited[i] = -1;
+                visited[i] = 0;
             }
 
             while(completedProcess < numProcess){
