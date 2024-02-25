@@ -74,8 +74,8 @@ int main(int argc, char **argv)
                     arrival[j] = oldArrival;
                     burst[i] = newBurst;
                     burst[j] = oldBurst;
-		    processLable[i] = newLable;
-		    processLable[j] = oldLable;
+		            processLables[i] = newLable;
+		            processLables[j] = oldLable;
 		    
                 }
             }
