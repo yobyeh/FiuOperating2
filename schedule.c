@@ -80,25 +80,17 @@ int main(int argc, char **argv)
     int endTime[numProcess];
 
     for(int i = 0; i < numProcess; i++) {
-    startTime[i] = -1; // Indicates not started
-    endTime[i] = -1;  // Indicates not ended
+    startTime[i] = -1;
+    endTime[i] = -1;
     }
 
     //run desired schedule
-    //output order Average wait and average turnaround
+    //output order Average wait and turnaround
     switch (userSelect)
     {
         //FCFS
         case 1:{
             
-            //test print
-            for (int i = 0; i < numProcess; i++){
-            printf("Process label %d", arrival[i]);
-                printf("arrival %d", arrival[i]);
-                printf("burst %d", burst[i]);
-                printf("\n");
-            }
-
             //print process order
             printf("Process order\n");
             for (int i = 0; i < numProcess; i++){
@@ -125,14 +117,6 @@ int main(int argc, char **argv)
                 }
             }
             
-            //test print
-            for (int i = 0; i < numProcess; i++){
-                printf("process number %d ", processLables[i]);
-                printf("start %d ", startTime[i]);
-                printf("end %d ", endTime[i]);
-                printf("\n");
-            }
-
             //average wait
             int totalWait = 0;
             for (int i = 0; i < numProcess; i++){
@@ -158,10 +142,7 @@ int main(int argc, char **argv)
             int completedProcess = 0;
             int currentTime = 0;
             int visited[numProcess];
-            //int startTime[numProcess];
-            //int endTime[numProcess];
 
-            
             for(int i = 0; i < numProcess; i++){
                 visited[i] = 0;
             }
