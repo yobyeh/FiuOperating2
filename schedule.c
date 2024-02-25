@@ -102,11 +102,13 @@ int main(int argc, char **argv)
             int endTime[numProcess];
 
             while(completedProcess < numProcess){
-                if(arrival[currentProcess] >= currentTime){
+                if(arrival[currentProcess] <= currentTime){
                     startTime[currentProcess] = currentTime;
-                    currentTime + burst[currentProcess];
+                    currentTime += burst[currentProcess];
                     endTime[currentProcess] = currentTime;
-                    completedProcess + 1;
+                    completedProcess++;
+                }else{
+                    currentTime++;
                 }
             }
             
