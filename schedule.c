@@ -138,49 +138,64 @@ int main(int argc, char **argv)
                 visited[i] = 0;
             }
 
+            int waitTime[numProcess];
+            int turnaroundTime[numProcess];
+
+            // Initialize wait and turnaround times to 0
+            for (int i = 0; i < numProcess; i++) {
+                waitTime[i] = 0;
+                turnaroundTime[i] = 0;
+            }
+
             //Running SJF
-            while(completedProcess < numProcess){
-                int shortBurstLocation = 0;
+            while(completedProcess < numProcess) {
+                int shortBurstLocation = -1;
                 int shortBurst = INT_MAX;
-                for(int i = 0; i < numProcess; i++){
-                    if (arrival[i] <= currentTime && !visited[i] && burst[i] < shortBurst){
+
+                for(int i = 0; i < numProcess; i++) {
+                    if (arrival[i] <= currentTime && !visited[i] && burst[i] < shortBurst) {
                     shortBurst = burst[i];
                     shortBurstLocation = i;
                     }
                 }
-                if(startTime[shortBurstLocation] == -1){
-                    startTime[shortBurstLocation] = currentTime;
+
+                // Check if a process is ready to be executed
+                if(shortBurstLocation != -1) {
+                    if(startTime[shortBurstLocation] == -1) {
+                        startTime[shortBurstLocation] = currentTime;
+                        }
+
+                        currentTime += shortBurst; // Process completes
+                        endTime[shortBurstLocation] = currentTime;
+                        visited[shortBurstLocation] = 1;
+                        orderCompleted[completedProcess] = processLabels[shortBurstLocation];
+                        completedProcess++;
+
+                        waitTime[shortBurstLocation] = startTime[shortBurstLocation] - arrival[shortBurstLocation];
+                        turnaroundTime[shortBurstLocation] = endTime[shortBurstLocation] - arrival[shortBurstLocation];
+                } else {
+                    currentTime++; // Increment current time if no process is ready
                 }
-                currentTime += shortBurst; // Process completes
-                endTime[shortBurstLocation] = currentTime;
-                visited[shortBurstLocation] = 1;
-                orderCompleted[completedProcess] = processLabels[shortBurstLocation];
-                completedProcess++;
             }
 
-            //Print order
-            printf("Process order\n");
-            for(int i = 0; i < numProcess; i++){
-                printf(" %d ", orderCompleted[i]);
+            // Calculate total wait and turnaround times
+            int totalWait = 0, totalTurnaround = 0;
+            for (int i = 0; i < numProcess; i++) {
+                totalWait += waitTime[i];
+                totalTurnaround += turnaroundTime[i];
+            }
+
+            // Print process order
+            printf("Process order: ");
+            for(int i = 0; i < numProcess; i++) {
+                printf("%d ", orderCompleted[i]);
             }
             printf("\n");
 
-            //Average wait
-            int totalWait = 0;
-            for (int i = 0; i < numProcess; i++){
-                int waitTime = startTime[i] - arrival[i];
-                totalWait += waitTime;
-            }
-            double averageWait = (double)(totalWait) / numProcess;
-            printf("average wait time is: %f\n", averageWait);
-
-            //Average turnaround
-            int totalTurn = 0;
-            for (int i = 0; i < numProcess; i++){
-                int turn = endTime[i] - arrival[i];
-                totalTurn += turn;
-            }
-            double averageTurn = (double)(totalTurn) / numProcess;
+            // Calculate and print average wait and turnaround times
+            double averageWait = (double)totalWait / numProcess;
+            double averageTurn = (double)totalTurnaround / numProcess;
+            printf("Average wait time is: %f\n", averageWait);
             printf("Average turnaround time is: %f\n", averageTurn);
             break;
         }
