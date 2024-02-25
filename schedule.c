@@ -52,52 +52,50 @@ int main(int argc, char **argv)
     
     //run desired schedule
     //output order Average wait and average turnaround
-
     switch (userSelect)
     {
-    //FCFS
-    case 1:
-        int processLables[numProcess];
-	for(int i = 0; i < numProcess; i++){
-	    processLables[i] = i;
-	}	
+        //FCFS
+        case 1:{
+            int processLables[numProcess];
         for(int i = 0; i < numProcess; i++){
-            int oldArrival = arrival[i];
-            int oldBurst = burst[i];
-	    int oldLable = processLables[i];
-            for(int j = i + 1; j < numProcess; j++){
-                int newArrival = arrival[j];
-                int newBurst = burst[j];
-		int newLable = processLables[j];
-                if(oldArrival > newArrival){
-                    arrival[i] = newArrival;
-                    arrival[j] = oldArrival;
-                    burst[i] = newBurst;
-                    burst[j] = oldBurst;
-		            processLables[i] = newLable;
-		            processLables[j] = oldLable;
-		    
+            processLables[i] = i;
+        }	
+            for(int i = 0; i < numProcess; i++){
+                int oldArrival = arrival[i];
+                int oldBurst = burst[i];
+            int oldLable = processLables[i];
+                for(int j = i + 1; j < numProcess; j++){
+                    int newArrival = arrival[j];
+                    int newBurst = burst[j];
+            int newLable = processLables[j];
+                    if(oldArrival > newArrival){
+                        arrival[i] = newArrival;
+                        arrival[j] = oldArrival;
+                        burst[i] = newBurst;
+                        burst[j] = oldBurst;
+                        processLables[i] = newLable;
+                        processLables[j] = oldLable;
+                    }
                 }
             }
-        }
 
-        //test print
-        for (int i = 0; i < numProcess; i++){
-	    printf("Process label %d", arrival[i]);
-            printf("arrival %d", arrival[i]);
-            printf("burst %d", burst[i]);
-            printf("\n");
-        }
-	
-	
+            //test print
+            for (int i = 0; i < numProcess; i++){
+            printf("Process label %d", arrival[i]);
+                printf("arrival %d", arrival[i]);
+                printf("burst %d", burst[i]);
+                printf("\n");
+            }
 
-        break;
-    //SJF
-    case 2:
-        printf("case 2");
-        break;
-    default:
-        break;
+            break;
+        }
+        //SJF
+        case 2:{
+            printf("case 2");
+            break;
+        }
+        default:
+            break;
     }
     
     // And remember to release the dynamically allocated memory after using
