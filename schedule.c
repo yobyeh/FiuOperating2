@@ -57,33 +57,44 @@ int main(int argc, char **argv)
     {
     //FCFS
     case 1:
-        
+        int processLables[numProcess];
+	for(int i = 0; i < numProcess; i++){
+	    processLables[i] = i;
+	}	
         for(int i = 0; i < numProcess; i++){
             int oldArrival = arrival[i];
             int oldBurst = burst[i];
+	    int oldLable = processLables[i];
             for(int j = i + 1; j < numProcess; j++){
                 int newArrival = arrival[j];
-                int newButst = burst[j];
+                int newBurst = burst[j];
+		int newLable = processLables[j];
                 if(oldArrival > newArrival){
                     arrival[i] = newArrival;
                     arrival[j] = oldArrival;
-                    burst[i] = newButst;
+                    burst[i] = newBurst;
                     burst[j] = oldBurst;
+		    processLable[i] = newLable;
+		    processLable[j] = oldLable;
+		    
                 }
             }
         }
 
         //test print
         for (int i = 0; i < numProcess; i++){
-            printf("%d", arrival[i]);
-            printf("%d", burst[i]);
+	    printf("Process label %d", arrival[i]);
+            printf("arrival %d", arrival[i]);
+            printf("burst %d", burst[i]);
             printf("\n");
         }
+	
+	
 
         break;
     //SJF
     case 2:
-        /* code */
+        printf("case 2");
         break;
     default:
         break;
