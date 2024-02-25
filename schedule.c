@@ -107,6 +107,7 @@ int main(int argc, char **argv)
                     currentTime += burst[currentProcess];
                     endTime[currentProcess] = currentTime;
                     completedProcess++;
+                    currentProcess++;
                 }else{
                     currentTime++;
                 }
