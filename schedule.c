@@ -141,7 +141,7 @@ int main(int argc, char **argv)
             int waitTime[numProcess];
             int turnaroundTime[numProcess];
 
-            // Initialize wait and turnaround times to 0
+            //Wait and turnaround times
             for (int i = 0; i < numProcess; i++) {
                 waitTime[i] = 0;
                 turnaroundTime[i] = 0;
@@ -159,13 +159,13 @@ int main(int argc, char **argv)
                     }
                 }
 
-                // Check if a process is ready to be executed
+                //If process is ready to be executed
                 if(shortBurstLocation != -1) {
                     if(startTime[shortBurstLocation] == -1) {
                         startTime[shortBurstLocation] = currentTime;
                         }
 
-                        currentTime += shortBurst; // Process completes
+                        currentTime += shortBurst;
                         endTime[shortBurstLocation] = currentTime;
                         visited[shortBurstLocation] = 1;
                         orderCompleted[completedProcess] = processLabels[shortBurstLocation];
@@ -174,25 +174,25 @@ int main(int argc, char **argv)
                         waitTime[shortBurstLocation] = startTime[shortBurstLocation] - arrival[shortBurstLocation];
                         turnaroundTime[shortBurstLocation] = endTime[shortBurstLocation] - arrival[shortBurstLocation];
                 } else {
-                    currentTime++; // Increment current time if no process is ready
+                    currentTime++;
                 }
             }
 
-            // Calculate total wait and turnaround times
+            //Total wait and turnaround times
             int totalWait = 0, totalTurnaround = 0;
             for (int i = 0; i < numProcess; i++) {
                 totalWait += waitTime[i];
                 totalTurnaround += turnaroundTime[i];
             }
 
-            // Print process order
+            //Print process order
             printf("Process order: ");
             for(int i = 0; i < numProcess; i++) {
                 printf("%d ", orderCompleted[i]);
             }
             printf("\n");
 
-            // Calculate and print average wait and turnaround times
+            //Print average wait and turnaround times
             double averageWait = (double)totalWait / numProcess;
             double averageTurn = (double)totalTurnaround / numProcess;
             printf("Average wait time is: %f\n", averageWait);
