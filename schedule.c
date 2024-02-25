@@ -92,8 +92,10 @@ int main(int argc, char **argv)
             //print process order
             printf("Process order\n");
             for (int i = 0; i < numProcess; i++){
-                printf(" %d ", processLables[i]+1);
+                printf(" %d ", processLables[i]);
             }
+            printf("\n");
+
             //average wait
             int currentTime = 0;
             int currentProcess = 0;
@@ -115,7 +117,7 @@ int main(int argc, char **argv)
             
             //test print
             for (int i = 0; i < numProcess; i++){
-                printf("process number %d ", processLables[i]+1);
+                printf("process number %d ", processLables[i]);
                 printf("start %d ", startTime[i]);
                 printf("end %d ", endTime[i]);
                 printf("\n");
