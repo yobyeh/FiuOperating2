@@ -45,27 +45,29 @@ int main(int argc, char **argv)
     }
 
     //Tracking process labels
-    int processLables[numProcess];
+    int processLabels[numProcess];
     for(int i = 0; i < numProcess; i++){
-        processLables[i] = i + 1;
+        processLabels[i] = i + 1;
     }
 
     //Sorting arrays by arrival time
-    for(int i = 0; i < numProcess; i++){
-        int oldArrival = arrival[i];
-        int oldBurst = burst[i];
-        int oldLable = processLables[i];
-        for(int j = i + 1; j < numProcess; j++){
-            int newArrival = arrival[j];
-            int newBurst = burst[j];
-            int newLable = processLables[j];
-            if(oldArrival > newArrival){
-                arrival[i] = newArrival;
-                arrival[j] = oldArrival;
-                burst[i] = newBurst;
-                burst[j] = oldBurst;
-                processLables[i] = newLable;
-                processLables[j] = oldLable;
+    for(int i = 0; i < numProcess - 1; i++) {
+        for(int j = 0; j < numProcess - i - 1; j++) {
+            if(arrival[j] > arrival[j + 1]) {
+                // Swap arrival times
+                int tempArrival = arrival[j];
+                arrival[j] = arrival[j + 1];
+                arrival[j + 1] = tempArrival;
+
+                // Swap burst times
+                int tempBurst = burst[j];
+                burst[j] = burst[j + 1];
+                burst[j + 1] = tempBurst;
+
+                // Swap process labels
+                int tempLabel = processLabels[j];
+                processLabels[j] = processLabels[j + 1];
+                processLabels[j + 1] = tempLabel;
             }
         }
     }
@@ -87,7 +89,7 @@ int main(int argc, char **argv)
             //Print process order
             printf("Process order\n");
             for (int i = 0; i < numProcess; i++){
-                printf(" %d ", processLables[i]);
+                printf(" %d ", processLabels[i]);
             }
             printf("\n");
 
@@ -152,7 +154,7 @@ int main(int argc, char **argv)
                 currentTime += shortBurst; // Process completes
                 endTime[shortBurstLocation] = currentTime;
                 visited[shortBurstLocation] = 1;
-                orderCompleted[completedProcess] = processLables[shortBurstLocation];
+                orderCompleted[completedProcess] = processLabels[shortBurstLocation];
                 completedProcess++;
             }
 
