@@ -49,38 +49,42 @@ int main(int argc, char **argv)
         free(burst);
         exit(1);
     }
-    
+
+    //tracking process labels
+    int processLables[numProcess];
+    for(int i = 0; i < numProcess; i++){
+        processLables[i] = i + 1;
+    }
+    //sorting arrays by arrival time
+    for(int i = 0; i < numProcess; i++){
+        int oldArrival = arrival[i];
+        int oldBurst = burst[i];
+    int oldLable = processLables[i];
+        for(int j = i + 1; j < numProcess; j++){
+            int newArrival = arrival[j];
+            int newBurst = burst[j];
+    int newLable = processLables[j];
+            if(oldArrival > newArrival){
+                arrival[i] = newArrival;
+                arrival[j] = oldArrival;
+                burst[i] = newBurst;
+                burst[j] = oldBurst;
+                processLables[i] = newLable;
+                processLables[j] = oldLable;
+            }
+        }
+    }
+
+    int startTime[numProcess];
+    int endTime[numProcess];
+
     //run desired schedule
     //output order Average wait and average turnaround
     switch (userSelect)
     {
         //FCFS
         case 1:{
-            //tracking process labels
-            int processLables[numProcess];
-            for(int i = 0; i < numProcess; i++){
-                processLables[i] = i + 1;
-            }
-            //sorting arrays by arrival time
-            for(int i = 0; i < numProcess; i++){
-                int oldArrival = arrival[i];
-                int oldBurst = burst[i];
-            int oldLable = processLables[i];
-                for(int j = i + 1; j < numProcess; j++){
-                    int newArrival = arrival[j];
-                    int newBurst = burst[j];
-            int newLable = processLables[j];
-                    if(oldArrival > newArrival){
-                        arrival[i] = newArrival;
-                        arrival[j] = oldArrival;
-                        burst[i] = newBurst;
-                        burst[j] = oldBurst;
-                        processLables[i] = newLable;
-                        processLables[j] = oldLable;
-                    }
-                }
-            }
-
+            
             //test print
             for (int i = 0; i < numProcess; i++){
             printf("Process label %d", arrival[i]);
@@ -96,12 +100,12 @@ int main(int argc, char **argv)
             }
             printf("\n");
 
-            //running first FCFS
+            //running FCFS
             int currentTime = 0;
             int currentProcess = 0;
             int completedProcess = 0;
-            int startTime[numProcess];
-            int endTime[numProcess];
+            //int startTime[numProcess];
+            //int endTime[numProcess];
 
             while(completedProcess < numProcess){
                 if(arrival[currentProcess] <= currentTime){
@@ -145,7 +149,57 @@ int main(int argc, char **argv)
         }
         //SJF
         case 2:{
-            printf("case 2");
+            int completedProcess = 0;
+            int currentTime = 0;
+            int visited[numProcess];
+            //int startTime[numProcess];
+            //int endTime[numProcess];
+
+            
+            for(int i = 0; i < numProcess; i++){
+                visited[i] = -1;
+            }
+
+            while(completedProcess < numProcess){
+
+                int shortBurstLocation = 0;
+                int shortBurst = INT_MAX;
+                for(int i = 0; i < numProcess; i++){
+                    if (arrival[i] <= currentTime && !visited[i] && burst[i] < shortBurst){
+                    shortBurst = burst[i];
+                    shortBurstLocation = i;
+                    }
+                }
+                
+                
+                if(startTime[shortBurstLocation] == -1){
+                    startTime[shortBurstLocation] = currentTime;
+                }
+
+                currentTime += shortBurst; // Process completes
+                endTime[shortBurstLocation] = currentTime;
+                visited[shortBurstLocation] = 1;
+                completedProcess++;
+            }
+
+             //average wait
+            int totalWait = 0;
+            for (int i = 0; i < numProcess; i++){
+                int waitTime = startTime[i] - arrival[i];
+                totalWait += waitTime;
+            }
+            double averageWait = (double)(totalWait) / numProcess;
+            printf("average wait time is: %f\n", averageWait);
+
+            //average turnaround
+            int totalTurn = 0;
+            for (int i = 0; i < numProcess; i++){
+                int turn = endTime[i] - arrival[i];
+                totalTurn += turn;
+            }
+            double averageTurn = (double)(totalTurn) / numProcess;
+            printf("Average turnaround time is: %f\n", averageTurn);
+
             break;
         }
         default:
