@@ -129,8 +129,8 @@ int main(int argc, char **argv)
                 int waitTime = startTime[i] - arrival[i];
                 totalWait += waitTime;
             }
-            double averageWait = totalWait / numProcess;
-            printf("average wait time is: %d\n", averageWait);
+            double averageWait = (double)(totalWait / numProcess);
+            printf("average wait time is: %f\n", averageWait);
 
             //average turnaround
 
