@@ -101,7 +101,7 @@ int main(int argc, char **argv)
             int startTime[numProcess];
             int endTime[numProcess];
 
-            while(completedProcess >= numProcess){
+            while(completedProcess < numProcess){
                 if(arrival[currentProcess] >= currentTime){
                     startTime[currentProcess] = currentTime;
                     currentTime + burst[currentProcess];
@@ -112,10 +112,9 @@ int main(int argc, char **argv)
             
             //test print
             for (int i = 0; i < numProcess; i++){
-            printf("Process label %d", arrival[i]);
-                printf("process number %d", processLables[i]+1);
-                printf("start %d", startTime[i]);
-                printf("end %d", endTime[i]);
+                printf("process number %d ", processLables[i]+1);
+                printf("start %d ", startTime[i]);
+                printf("end %d ", endTime[i]);
                 printf("\n");
             }
 
